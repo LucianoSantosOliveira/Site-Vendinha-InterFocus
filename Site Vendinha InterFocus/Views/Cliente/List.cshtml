@@ -13,9 +13,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ClienteId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.ClienteName)
             </th>
             <th>
@@ -31,9 +28,6 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ClienteId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.ClienteName)
             </td>
             <td>
@@ -43,9 +37,10 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { id = item.ClienteId}) |
+                @Html.ActionLink("Details", "Details", new {id = item.ClienteId }) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.ClienteId })|
+                @Html.ActionLink("Criar nova divida", "Delete", new {id = item.ClienteId })
             </td>
         </tr>
 }
