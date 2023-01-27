@@ -7,7 +7,7 @@
 <h1>Clientes Cadastrados</h1>
 
 <p>
-    <a class="btn btn-success" asp-action="Create">Create New</a>
+    <a class="btn btn-success" asp-action="Create">Cadastrar novo cliente</a>
 </p>
 <table class="table" id="tableVenda">
     <thead>
@@ -40,7 +40,7 @@
                 @Html.ActionLink("Edit", "Edit", new { id = item.ClienteId}) |
                 @Html.ActionLink("Details", "Details", new {id = item.ClienteId }) |
                 @Html.ActionLink("Delete", "Delete", new {id = item.ClienteId })|
-                @Html.ActionLink("Criar nova divida", "Delete", new {id = item.ClienteId })
+                @Html.ActionLink("Criar nova divida","Create", "Divida", new {clienteId = item.ClienteId })
             </td>
         </tr>
 }
