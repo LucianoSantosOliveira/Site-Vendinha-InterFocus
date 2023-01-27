@@ -74,7 +74,7 @@ namespace Site_Vendinha_InterFocus.Controllers
                 var Dividas = JsonConvert.DeserializeObject<List<Divida>>(DividasJson);              
                 var TemDividasEmAberto = Dividas.Where(d => d.ClienteId == divida.ClienteId && d.EstaPaga == false).ToList();
                 if (TemDividasEmAberto.Count > 0)
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(NaoFoiPossivelCadastrar));
 
                 await Request.PostAsync("api/Dividas/", requestContent);
                 return RedirectToAction(nameof(Index));
@@ -133,7 +133,7 @@ namespace Site_Vendinha_InterFocus.Controllers
             try
             {
                 await Request.DeleteAsync($"api/Dividas/{id}");
-                return RedirectToAction(nameof(ListAsync));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
@@ -150,6 +150,11 @@ namespace Site_Vendinha_InterFocus.Controllers
             var Dividas = JsonConvert.DeserializeObject<List<Divida>>(DividasJson);
             Dividas.ForEach(d => d.nomeCliente = clientes.FirstOrDefault(c => c.ClienteId == d.ClienteId).ClienteName);
             return View(Dividas);
+        }
+
+        public ActionResult NaoFoiPossivelCadastrar()
+        {
+            return View();
         }
     }
 }

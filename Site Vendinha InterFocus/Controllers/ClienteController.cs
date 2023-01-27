@@ -18,6 +18,11 @@ namespace Site_Vendinha_InterFocus.Controllers
             Request.BaseAddress = new Uri("https://localhost:7200/");
         }
 
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         // GET: ClienteController/Details/5
         public async Task<ActionResult> DetailsAsync(Guid id)
         {
@@ -43,7 +48,7 @@ namespace Site_Vendinha_InterFocus.Controllers
                 var ClienteJson = JsonConvert.SerializeObject(cliente);
                 var requestContent = new StringContent(ClienteJson ,Encoding.UTF8, "application/json");
                 await Request.PostAsync("api/Clientes/", requestContent);
-                return RedirectToAction(nameof(ListAsync));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
@@ -69,7 +74,7 @@ namespace Site_Vendinha_InterFocus.Controllers
                 var ClienteJson = JsonConvert.SerializeObject(cliente);
                 var requestContent = new StringContent(ClienteJson, Encoding.UTF8, "application/json");
                 await Request.PutAsync($"api/Clientes/{cliente.ClienteId}", requestContent);
-                return RedirectToAction(nameof(ListAsync));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
@@ -93,7 +98,7 @@ namespace Site_Vendinha_InterFocus.Controllers
             try
             {
                 await Request.DeleteAsync($"api/Clientes/{id}");
-                return RedirectToAction(nameof(ListAsync));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
