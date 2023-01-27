@@ -1,4 +1,6 @@
-﻿namespace Site_Vendinha_InterFocus.Models
+﻿using Newtonsoft.Json;
+
+namespace Site_Vendinha_InterFocus.Models
 {
     public class Divida
     {
@@ -8,5 +10,9 @@
         public DateTime DataDeCriacao { get; set; }
         public DateTime DataDePagamento { get; set; }
         public Guid ClienteId { get; set; }
+        [JsonIgnore]
+        public string nomeCliente { get; set; }
+        [JsonIgnore]
+        public string Valor { get; set; }
     }
 }
