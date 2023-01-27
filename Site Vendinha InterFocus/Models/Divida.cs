@@ -12,5 +12,7 @@ namespace Site_Vendinha_InterFocus.Models
         public Guid ClienteId { get; set; }
         [JsonIgnore]
         public string nomeCliente { get; set; }
+        [JsonIgnore]
+        public string Valor { get; set; }
     }
 }

@@ -29,6 +29,13 @@ $(document).ready(function () {
         }
     });
 
+    $("#Valor").maskMoney({
+        prefix: 'R$ ',
+        allowNegative: false,
+        thousands: ',',
+        decimal: '.'
+    });
+
     $(function () {
         $("#Valor").maskMoney({
             prefix: 'R$ ',

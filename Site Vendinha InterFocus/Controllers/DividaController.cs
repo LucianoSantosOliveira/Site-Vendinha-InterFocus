@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using Site_Vendinha_InterFocus.Models;
+using System.Globalization;
 using System.Text;
 
 namespace Site_Vendinha_InterFocus.Controllers
@@ -21,7 +22,16 @@ namespace Site_Vendinha_InterFocus.Controllers
         {
             return View();
         }
+        private float ConvertValorToFloat(string valor)
+        {
 
+            CultureInfo formato = null;
+            formato = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+            formato.NumberFormat.NumberDecimalSeparator = ".";
+            formato.NumberFormat.NumberGroupSeparator = ",";
+            return float.Parse(valor.Replace("R$", ""), formato);
+
+        }
         // GET: DividaController/Details/5
         public async Task<ActionResult> DetailsAsync(Guid id)
         {
@@ -57,11 +67,11 @@ namespace Site_Vendinha_InterFocus.Controllers
         {
             try
             {
+                divida.ValorDivida = (decimal)ConvertValorToFloat(divida.Valor);
                 var DividaJson = JsonConvert.SerializeObject(divida);
                 var requestContent = new StringContent(DividaJson, Encoding.UTF8, "application/json");
                 var DividasJson = await Request.GetStringAsync("api/Dividas");
-                var Dividas = JsonConvert.DeserializeObject<List<Divida>>(DividasJson);
-
+                var Dividas = JsonConvert.DeserializeObject<List<Divida>>(DividasJson);              
                 var TemDividasEmAberto = Dividas.Where(d => d.ClienteId == divida.ClienteId && d.EstaPaga == false).ToList();
                 if (TemDividasEmAberto.Count > 0)
                     return RedirectToAction(nameof(Index));
@@ -80,6 +90,7 @@ namespace Site_Vendinha_InterFocus.Controllers
         {
             var dividaJson = await Request.GetStringAsync($"api/Dividas/{id.ToString()}");
             var divida = JsonConvert.DeserializeObject<Divida>(dividaJson);
+            divida.Valor = divida.ValorDivida == 0 ? "" : divida.ValorDivida.ToString();
             return View(divida);
         }
 
@@ -90,6 +101,11 @@ namespace Site_Vendinha_InterFocus.Controllers
         {
             try
             {
+                if (divida.Valor.Contains(","))
+                {
+                    divida.Valor = $"R$ {divida.Valor.Replace(",", ".")}";
+                }
+                divida.ValorDivida = (decimal)ConvertValorToFloat(divida.Valor);
                 var DividaJson = JsonConvert.SerializeObject(divida);
                 var requestContent = new StringContent(DividaJson, Encoding.UTF8, "application/json");
                 await Request.PutAsync($"api/Dividas/{divida.DividaId}", requestContent);
