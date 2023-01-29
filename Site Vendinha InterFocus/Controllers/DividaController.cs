@@ -141,14 +141,19 @@ namespace Site_Vendinha_InterFocus.Controllers
             }
         }
 
-        public async Task<ActionResult> ListAsync()
+        public async Task<ActionResult> ListAsync(Guid? clienteId )
         {
             var clienteJson = await Request.GetStringAsync("api/Clientes");
             var clientes = JsonConvert.DeserializeObject<List<Cliente>>(clienteJson);
 
             var DividasJson = await Request.GetStringAsync("api/Dividas");
             var Dividas = JsonConvert.DeserializeObject<List<Divida>>(DividasJson);
+
             Dividas.ForEach(d => d.nomeCliente = clientes.FirstOrDefault(c => c.ClienteId == d.ClienteId).ClienteName);
+
+            if(clienteId == null)
+                return View(Dividas.Select(d => d.ClienteId == clienteId));
+
             return View(Dividas);
         }
 

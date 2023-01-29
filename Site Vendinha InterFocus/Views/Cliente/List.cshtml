@@ -40,7 +40,8 @@
                 @Html.ActionLink("Edit", "Edit", new { id = item.ClienteId}) |
                 @Html.ActionLink("Details", "Details", new {id = item.ClienteId }) |
                 @Html.ActionLink("Delete", "Delete", new {id = item.ClienteId })|
-                    @Html.ActionLink("Criar nova divida","Create", "Divida", new {clienteId = item.ClienteId }, new {@class="btn btn-secondary"})
+                    @Html.ActionLink("Lista de dívidas","List", "Divida", new {clienteId = item.ClienteId }, new {@class="btn btn-primary"}) |
+                @Html.ActionLink("Criar nova divida","Create", "Divida", new {clienteId = item.ClienteId }, new {@class="btn btn-secondary"})
             </td>
         </tr>
 }
