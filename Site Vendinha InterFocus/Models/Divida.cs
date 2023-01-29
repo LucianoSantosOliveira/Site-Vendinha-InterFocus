@@ -14,5 +14,7 @@ namespace Site_Vendinha_InterFocus.Models
         public string nomeCliente { get; set; }
         [JsonIgnore]
         public string Valor { get; set; }
+        [JsonIgnore]
+        public decimal Total { get; set; }
     }
 }

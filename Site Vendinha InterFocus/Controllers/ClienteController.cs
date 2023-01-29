@@ -110,6 +110,14 @@ namespace Site_Vendinha_InterFocus.Controllers
         {
             var clienteJson = await Request.GetStringAsync("api/Clientes");
             var clientes = JsonConvert.DeserializeObject<List<Cliente>>(clienteJson);
+
+            var DividasJson = await Request.GetStringAsync("api/Dividas");
+            var Dividas = JsonConvert.DeserializeObject<List<Divida>>(DividasJson);
+
+            clientes.ForEach(c => c.ValorTotalDividas = Dividas.Where(d => d.ClienteId == c.ClienteId)
+                                                               .Select(d => d.ValorDivida)
+                                                               .Sum());
+
             return View(clientes);
         }
     }

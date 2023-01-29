@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Site_Vendinha_InterFocus.Models;
 using System.Globalization;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Site_Vendinha_InterFocus.Controllers
 {
@@ -103,7 +104,8 @@ namespace Site_Vendinha_InterFocus.Controllers
             {
                 if (divida.Valor.Contains(","))
                 {
-                    divida.Valor = $"R$ {divida.Valor.Replace(",", ".")}";
+                    divida.Valor.Remove(divida.Valor.Length - 1);
+                    divida.Valor = $"R$ {divida.Valor}";
                 }
                 divida.ValorDivida = (decimal)ConvertValorToFloat(divida.Valor);
                 var DividaJson = JsonConvert.SerializeObject(divida);
