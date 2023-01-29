@@ -151,8 +151,8 @@ namespace Site_Vendinha_InterFocus.Controllers
 
             Dividas.ForEach(d => d.nomeCliente = clientes.FirstOrDefault(c => c.ClienteId == d.ClienteId).ClienteName);
 
-            if(clienteId == null)
-                return View(Dividas.Select(d => d.ClienteId == clienteId));
+            if(clienteId != null)
+                return View(Dividas.Where(d => d.ClienteId == clienteId));
 
             return View(Dividas);
         }
