@@ -28,8 +28,8 @@ namespace Site_Vendinha_InterFocus.Controllers
 
             CultureInfo formato = null;
             formato = (CultureInfo)CultureInfo.InvariantCulture.Clone();
-            formato.NumberFormat.NumberDecimalSeparator = ".";
-            formato.NumberFormat.NumberGroupSeparator = ",";
+            formato.NumberFormat.NumberDecimalSeparator = ",";
+            formato.NumberFormat.NumberGroupSeparator = ".";
             return float.Parse(valor.Replace("R$", ""), formato);
 
         }

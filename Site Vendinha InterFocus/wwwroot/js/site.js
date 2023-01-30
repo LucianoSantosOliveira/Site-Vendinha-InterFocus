@@ -40,8 +40,8 @@ $(document).ready(function () {
         $("#Valor").maskMoney({
             prefix: 'R$ ',
             allowNegative: false,
-            thousands: ',',
-            decimal: '.'
+            thousands: '.',
+            decimal: ','
         });
     });
 });
